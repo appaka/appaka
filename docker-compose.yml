@@ -2,6 +2,15 @@ version: "3.4"
 
 services:
 
+  node:
+    image: node
+    working_dir: /srv/appaka
+    volumes:
+      - ./front:/srv/appaka
+    command: yarn start
+    ports:
+      - "80:3000"
+
   elixir:
     image: elixir
     working_dir: /usr/src/myapp
