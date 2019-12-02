@@ -12,7 +12,9 @@ services:
       - "80:3000"
 
   elixir:
-    image: elixir
+    image: elixir:1.6.6
     working_dir: /usr/src/myapp
     volumes:
       - ./elixir:/usr/src/myapp
+      - ./elixir/.mix:/root/.mix
+      
