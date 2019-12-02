@@ -7,7 +7,8 @@ services:
     working_dir: /srv/appaka
     volumes:
       - ./front:/srv/appaka
-    command: yarn start
+    command: start
+    entrypoint: /srv/appaka/entrypoint.sh
     ports:
       - "80:3000"
 
@@ -41,7 +42,7 @@ services:
     ports:
       - 5432:5432
 
-networks: 
+networks:
   appaka:
-    
+
 
