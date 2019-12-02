@@ -17,4 +17,28 @@ services:
     volumes:
       - ./elixir:/usr/src/myapp
       - ./elixir/.mix:/root/.mix
-      
+    networks:
+      - appaka
+    depends_on:
+      - postgres
+    command: |
+      mix phx.server
+    ports:
+      - 4000:4000
+
+  postgres:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: appaka
+    volumes:
+      - ./docker/db-fixtures/:/docker-entrypoint-initdb.d/:delegated
+      - ./.docker/postgres/:/var/lib/postgresql/data
+    networks:
+      - appaka
+    ports:
+      - 5432:5432
+
+networks: 
+  appaka:
+
