@@ -1,0 +1,9 @@
+version: "3.4"
+
+services:
+
+  elixir:
+    image: elixir
+    working_dir: /usr/src/myapp
+    volumes:
+      - ./elixir:/usr/src/myapp
