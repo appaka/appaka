@@ -42,5 +42,5 @@ config :blog, Blog.Repo,
   username: "username",
   password: "password",
   database: "appaka",
-  hostname: "localhost",
+  hostname: "postgres",
   pool_size: 10

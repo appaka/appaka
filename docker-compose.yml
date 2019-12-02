@@ -21,6 +21,8 @@ services:
       - appaka
     depends_on:
       - postgres
+    environment:
+      DATABASE_URL: ecto://username:password@postgres/appaka
     command: |
       mix phx.server
     ports:
@@ -41,4 +43,5 @@ services:
 
 networks: 
   appaka:
+    
 
