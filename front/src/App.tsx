@@ -1,29 +1,32 @@
 import React from "react";
-import logo from "./logo.svg";
-import Button from "@material-ui/core/Button";
+import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
+import Home from "./components/home";
+import Tasks from "./components/tasks";
+import Stories from "./components/stories";
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <Button variant="contained" color="primary">
-          Hello World
-        </Button>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Router>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/tasks">Tasks</Link>
+            </li>
+            <li>
+              <Link to="/stories">Stories</Link>
+            </li>
+          </ul>
+        </nav>
+        <Route exact path="/" component={Home} />
+        <Route path="/tasks" component={Tasks} />
+        <Route path="/stories" component={Stories} />
+      </Router>
+    </>
   );
 };
 
