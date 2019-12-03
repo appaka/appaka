@@ -1,5 +1,6 @@
 /.idea
 /.docker
+.env
 
 # elixir
 # The directory Mix will write compiled artifacts to.

@@ -3,7 +3,7 @@ version: "3.4"
 services:
 
   node:
-    image: node
+    image: node:13.2.0
     working_dir: /srv/appaka
     volumes:
       - ./front:/srv/appaka
@@ -22,10 +22,11 @@ services:
       - appaka
     depends_on:
       - postgres
+    command: phx.server
+    entrypoint: /usr/src/myapp/entrypoint.sh
     environment:
       DATABASE_URL: ecto://username:password@postgres/appaka
-    command: |
-      mix phx.server
+      OPSGENIE_API_KEY: "${OPSGENIE_API_KEY}"
     ports:
       - 4000:4000
 
@@ -36,13 +37,11 @@ services:
       POSTGRES_DB: appaka
     volumes:
       - ./docker/db-fixtures/:/docker-entrypoint-initdb.d/:delegated
-      - ./.docker/postgres/:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
     networks:
       - appaka
     ports:
       - 5432:5432
 
-networks:
-  appaka:
-
-
+volumes:
+  postgres:

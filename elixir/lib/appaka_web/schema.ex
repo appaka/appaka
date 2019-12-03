@@ -4,6 +4,7 @@ defmodule AppakaWeb.Schema do
   import_types Absinthe.Type.Custom
   import_types AppakaWeb.Schema.AccountTypes
   import_types AppakaWeb.Schema.ContentTypes
+  import_types AppakaWeb.Schema.NotificationTypes
 
   alias AppakaWeb.Resolvers
 
@@ -15,6 +16,11 @@ defmodule AppakaWeb.Schema do
       arg :password, non_null(:string)
 
       resolve(&Resolvers.Accounts.login/2)
+    end
+
+    @desc "Get latest notifications"
+    field :notifications, list_of(:notification) do
+      resolve &Resolvers.Notification.list/2
     end
 
     @desc "Get all tickets"

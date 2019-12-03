@@ -38,6 +38,7 @@ defmodule Appaka.Mixfile do
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:ecto, "~> 2.2.6"},
+      {:httpoison, "~> 1.5"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},

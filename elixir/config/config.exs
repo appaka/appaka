@@ -16,6 +16,9 @@ config :appaka, AppakaWeb.Endpoint,
   render_errors: [view: AppakaWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Appaka.PubSub, adapter: Phoenix.PubSub.PG2]
 
+config :appaka, DataSource.OpsGenie.Client,
+  DataSource.OpsGenie.ClientImpl
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
