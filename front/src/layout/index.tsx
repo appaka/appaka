@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {Link} from "react-router-dom";
 import {createStyles, makeStyles, Theme, fade} from '@material-ui/core/styles';
+import { amber } from '@material-ui/core/colors';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -27,8 +28,22 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Menu from "@material-ui/core/Menu";
 import Tooltip from '@material-ui/core/Tooltip';
+import { Notification, NotificationTypeInfo, NotificationTypeWarn, NotificationTypeAlert } from '../types/types'
 
 const drawerWidth = 240;
+
+const notifications: Array<Notification> = [
+    {label: 'This is a notification that sends you Home.', to: '/tasks', type: 'info'},
+    {label: 'This is a notification that sends you to Tasks.', to: '/tasks', type: 'info'},
+    {label: 'This is a notification that sends you to Stories.', to: '/stories', type: 'warn'},
+    {label: 'This is a notification that sends you to Board.', to: '/board', type: 'alert'},
+];
+
+const notificationLevels = {
+    [NotificationTypeInfo]: 1,
+    [NotificationTypeWarn]: 2,
+    [NotificationTypeAlert]: 3,
+}
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -41,6 +56,15 @@ const useStyles = makeStyles((theme: Theme) =>
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.leavingScreen,
             }),
+        },
+        appBarAlert: {
+            backgroundColor: theme.palette.error.dark,
+        },
+        appBarInfo: {
+            backgroundColor: theme.palette.primary.main,
+        },
+        appBarWarn: {
+            backgroundColor: amber[700],
         },
         appBarShift: {
             marginLeft: drawerWidth,
@@ -153,7 +177,7 @@ export default function Layout({children}: { children: React.ReactNode }) {
     const handleNotificationClose = () => setNotificationEl(null)
     const handleDrawerOpen = () => setOpen(true)
     const handleDrawerClose = () => setOpen(false)
-
+    const highestNotificationLevel = notifications.reduce((acc, not) => Math.max(acc, notificationLevels[not.type || NotificationTypeInfo]), notificationLevels[NotificationTypeInfo]);
     return (
         <div className={classes.root}>
             <CssBaseline/>
@@ -161,6 +185,9 @@ export default function Layout({children}: { children: React.ReactNode }) {
                 position="fixed"
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: open,
+                    [classes.appBarInfo]: highestNotificationLevel === 1,
+                    [classes.appBarWarn]: highestNotificationLevel === 2,
+                    [classes.appBarAlert]: highestNotificationLevel >= 3,
                 })}
             >
                 <Toolbar>
@@ -195,11 +222,11 @@ export default function Layout({children}: { children: React.ReactNode }) {
                     <div className={classes.sectionDesktop}>
                         <Tooltip title="Notification">
                             <IconButton
-                                aria-label="show 17 new notifications"
+                                aria-label={`show ${notifications.length} new notifications`}
                                 color="inherit"
                                 onClick={handleNotificationOpen}
                             >
-                                <Badge badgeContent={17} color="secondary">
+                                <Badge badgeContent={notifications.length} color="secondary">
                                     <NotificationsIcon/>
                                 </Badge>
                             </IconButton>
@@ -249,12 +276,7 @@ export default function Layout({children}: { children: React.ReactNode }) {
                     onClose={handleNotificationClose}
                 >
                     <Divider/>
-                    {[
-                        {label: 'This is a notification that sends you Home.', to: '/'},
-                        {label: 'This is a notification that sends you to Tasks.', to: '/tasks'},
-                        {label: 'This is a notification that sends you to Stories.', to: '/stories'},
-                        {label: 'This is a notification that sends you to Board.', to: '/board'},
-                    ].map(({label, to}) => [
+                    {notifications.map(({label, to}) => [
                             <Link to={to} key={label} className={classes.menuItem} onClick={handleNotificationClose}>
                                 <ListItem button>
                                     <ListItemText primary={label}/>

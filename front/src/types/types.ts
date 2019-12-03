@@ -26,4 +26,16 @@ export type Task = {
   status: Status;
 };
 
+export type Notification = {
+  label: string;
+  to: string;
+  type: NotificationType
+}
+
 export type Status = "new" | "wip" | "done" | "rejected" | "closed";
+
+export const NotificationTypeInfo = 'info';
+export const NotificationTypeWarn = 'warn';
+export const NotificationTypeAlert = 'alert';
+
+export type NotificationType = NotificationTypeInfo | NotificationTypeWarn | NotificationTypeAlert;
