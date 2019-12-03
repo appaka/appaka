@@ -14,4 +14,15 @@ defmodule AppakaWeb.Resolvers.Content do
     {:error, "Access denied"}
   end
 
+  def list_stories(_parent, _args, _resolution) do
+    {:ok, Appaka.Content.list_stories()}
+  end
+
+  def list_tasks(%Appaka.Models.Tickets{} = ticket, _args, _resolution) do
+    {:ok, Appaka.Content.list_tasks(ticket)}
+  end
+  def list_tasks(ticket_id) do
+    {:ok, Appaka.Content.list_tasks(%{id: ticket_id})}
+  end
+
 end

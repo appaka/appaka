@@ -24,4 +24,19 @@ defmodule Appaka.Content do
     |> Repo.insert
   end
 
+  def list_stories do
+    from(t in Models.Tickets,
+      where: t.type == "story"
+    )
+    |> Repo.all
+  end
+
+  def list_tasks(story) do
+    from(t in Models.Tickets,
+      where: t.type == "task",
+      where: t.parent_id == ^story.id
+    )
+    |> Repo.all
+  end
+
 end

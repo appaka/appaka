@@ -14,6 +14,17 @@ defmodule AppakaWeb.Schema do
       resolve &Resolvers.Content.list_tickets/3
     end
 
+    @desc "Get all stories"
+    field :stories, list_of(:ticket) do
+      resolve &Resolvers.Content.list_stories/3
+    end
+
+    @desc "Get tasks"
+    field :tasks, list_of(:ticket) do
+      arg :id, non_null(:id)
+      resolve &Resolvers.Content.list_tasks/1
+    end
+
     @desc "Get a user"
     field :user, :user do
       arg :id, non_null(:id)
