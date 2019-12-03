@@ -9,6 +9,14 @@ defmodule AppakaWeb.Schema do
 
   query do
 
+    @desc "Login!"
+    field :login, :user do
+      arg :email, non_null(:string)
+      arg :password, non_null(:string)
+
+      resolve(&Resolvers.Accounts.login/2)
+    end
+
     @desc "Get all tickets"
     field :tickets, list_of(:ticket) do
       resolve &Resolvers.Content.list_tickets/3

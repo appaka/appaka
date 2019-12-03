@@ -36,6 +36,8 @@ defmodule AppakaWeb.Endpoint do
     key: "_appaka_key",
     signing_salt: "vdLHTz/L"
 
+  plug CORSPlug
+
   plug AppakaWeb.Router
 
   @doc """

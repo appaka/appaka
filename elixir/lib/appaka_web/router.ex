@@ -2,6 +2,7 @@ defmodule AppakaWeb.Router do
   use AppakaWeb, :router
 
   pipeline :api do
+    plug :fetch_session
     plug :accepts, ["json"]
     plug AppakaWeb.Context
   end

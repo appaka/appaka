@@ -5,9 +5,11 @@ defmodule Appaka.Models.Users do
   schema "users" do
     field :name, :string
     field :email, :string
+    field :password, :string, virtual: true
     field :password_hash, :string
+    field :token, :string
 
-    has_many :tickets, Tickets, foreign_key: :author_id
+    has_many :ticket, Tickets, foreign_key: :author_id
     has_many :asigned, Tickets, foreign_key: :asignee_id
     has_many :ticket_comments, TicketComments, foreign_key: :author_id
 

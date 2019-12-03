@@ -23,6 +23,10 @@ defmodule Appaka.Content do
     |> Ecto.build_assoc(:tickets, attrs)
     |> Repo.insert
   end
+  def create_ticket(attrs) do
+    attrs
+    |> Repo.insert
+  end
 
   def list_stories do
     from(t in Models.Tickets,

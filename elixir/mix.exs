@@ -48,6 +48,7 @@ defmodule Appaka.Mixfile do
       {:comeonin, "~> 4.0"},
       {:argon2_elixir, "~> 1.2"},
       {:jason, "~> 1.0"},
+      {:cors_plug, "~> 2.0"},
     ]
   end
 

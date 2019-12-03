@@ -7,10 +7,12 @@ defmodule AppakaWeb.Resolvers.Content do
     {:ok, Appaka.Content.list_tickets()}
   end
 
-  def create_ticket(_parent, args, %{context: %{current_user: user}}) do
-    Appaka.Content.create_ticket(user, args)
+  #def create_ticket(_parent, args, %{context: %{current_user: user}}) do
+  def create_ticket(_parent, args, _resolution) do
+    #Appaka.Content.create_ticket(user, args)
+    Appaka.Content.create_ticket(args)
   end
-  def create_post(_parent, _args, _resolution) do
+  def create_ticket(_parent, _args, _resolution) do
     {:error, "Access denied"}
   end
 
