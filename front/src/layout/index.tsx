@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
-import {createStyles, makeStyles, useTheme, Theme} from '@material-ui/core/styles';
+import {Link} from "react-router-dom";
+import {createStyles, makeStyles, useTheme, Theme, fade} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,8 +17,14 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import {Link} from "react-router-dom";
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from "@material-ui/core/InputBase";
+import Badge from "@material-ui/core/Badge/Badge";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
 
 const drawerWidth = 240;
 
@@ -43,6 +50,47 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         menuButton: {
             marginRight: 36,
+        },
+        grow: {
+            flexGrow: 1,
+        },
+        search: {
+            position: 'relative',
+            borderRadius: theme.shape.borderRadius,
+            backgroundColor: fade(theme.palette.common.white, 0.15),
+            '&:hover': {
+                backgroundColor: fade(theme.palette.common.white, 0.25),
+            },
+            marginRight: theme.spacing(2),
+            marginLeft: 0,
+            width: '100%',
+            [theme.breakpoints.up('sm')]: {
+                marginLeft: theme.spacing(3),
+                width: 'auto',
+            },
+        },
+        searchIcon: {
+            width: theme.spacing(7),
+            height: '100%',
+            position: 'absolute',
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        inputRoot: {
+            color: 'inherit',
+        },
+        inputInput: {
+            padding: theme.spacing(1, 1, 1, 7),
+            transition: theme.transitions.create('width'),
+            width: '100%',
+            [theme.breakpoints.up('md')]: {
+                width: 200,
+            },
+        },
+        sectionDesktop: {
+            display: 'flex',
         },
         hide: {
             display: 'none',
@@ -92,14 +140,13 @@ export default function Layout({children}: { children: React.ReactNode }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+    const [profileEl, setProfileEl] = React.useState<null | HTMLElement>(null);
+    const isMenuOpen = Boolean(profileEl);
+    const profileMenuId = 'primary-search-account-menu';
+    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => setProfileEl(event.currentTarget)
+    const handleProfileClose = () => setProfileEl(null)
+    const handleDrawerOpen = () => setOpen(true)
+    const handleDrawerClose = () => setOpen(false)
 
     return (
         <div className={classes.root}>
@@ -125,7 +172,49 @@ export default function Layout({children}: { children: React.ReactNode }) {
                     <Typography variant="h6" noWrap>
                         AppAka
                     </Typography>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon />
+                        </div>
+                        <InputBase
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                        />
+                    </div>
+                    <div className={classes.grow} />
+                    <div className={classes.sectionDesktop}>
+                        <IconButton aria-label="show 17 new notifications" color="inherit">
+                            <Badge badgeContent={17} color="secondary">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={profileMenuId}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                    </div>
                 </Toolbar>
+                <Menu
+                    anchorEl={profileEl}
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+                    id={profileMenuId}
+                    keepMounted
+                    transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+                    open={isMenuOpen}
+                    onClose={handleProfileClose}
+                >
+                    <MenuItem onClick={handleProfileClose}>Logout</MenuItem>
+                </Menu>
             </AppBar>
             <Drawer
                 variant="permanent"
@@ -149,7 +238,7 @@ export default function Layout({children}: { children: React.ReactNode }) {
                 <Divider/>
                 {[
                     {label: 'Home', to: '/', icon: <HomeIcon/>},
-                    {label: 'Tasks', to: '/tasks', icon: <AssignmentIndIcon/>},
+                    {label: 'Tasks', to: '/tasks', icon: <AssignmentIcon/>},
                     {label: 'Stories', to: '/stories', icon: <InboxIcon/>},
                 ].map(({label, to, icon}) => (
                     <Link to={to} key={label} className={classes.menuItem}>
