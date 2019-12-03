@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     height: "100%"
   },
   image: {
-    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundImage: "url(https://images8.alphacoders.com/548/548463.jpg)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "dark"
