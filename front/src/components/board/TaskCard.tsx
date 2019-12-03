@@ -10,11 +10,11 @@ interface TaskCardProps {
 }
 
 const TaskCard = ({ task }: TaskCardProps) => {
-  const [connectDrag, drag] = useDrag({
+  const [, drag] = useDrag({
     item: { id: task.id, type: "task" }
   });
   return (
-    <div ref={drag}>
+    <div ref={drag} style={{ margin: 5 }}>
       <Card style={{ width: "200px" }}>
         <CardContent>
           <Typography>{task.title}</Typography>

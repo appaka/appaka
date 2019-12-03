@@ -10,7 +10,7 @@ interface StoryCardProps {
 }
 
 const StoryCard = ({ story }: StoryCardProps) => {
-  const [connectDrag, drag] = useDrag({
+  const [, drag] = useDrag({
     item: { id: story.id, type: "story" }
   });
   return (

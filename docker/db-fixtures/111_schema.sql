@@ -2,7 +2,7 @@ CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');
 CREATE TYPE ticket_status AS ENUM('new','wip','done','rejected','closed');
 CREATE TYPE ticket_type AS ENUM('story','task');
 
-DROP TABLE public.users;
+DROP TABLE IF EXISTS public.users;
 CREATE TABLE public.users (
     id serial primary key,
     name VARCHAR(255),

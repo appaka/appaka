@@ -6,18 +6,11 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import StoryCard from "./StoryCard";
-import TaskCard from "./TaskCard";
-import { useDrag, useDrop } from "react-dnd";
+import { useDrop } from "react-dnd";
 import TableCellDropable from "./TableCellDropable";
 import { Story } from "../../types/types";
 
 const BordPage = () => {
-  const [connectDrop, drop] = useDrop({
-    accept: "story",
-    hover(item: any) {
-      console.log("Hovering item. id: ", item.id);
-    }
-  });
   return (
     <div>
       <Table aria-label="simple table">
