@@ -38,4 +38,4 @@ export const NotificationTypeInfo = 'info';
 export const NotificationTypeWarn = 'warn';
 export const NotificationTypeAlert = 'alert';
 
-export type NotificationType = NotificationTypeInfo | NotificationTypeWarn | NotificationTypeAlert;
+export type NotificationType = 'info' | 'warn' | 'alert';

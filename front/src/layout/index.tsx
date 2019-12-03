@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import {Link} from "react-router-dom";
 import {createStyles, makeStyles, Theme, fade} from '@material-ui/core/styles';
-import { amber } from '@material-ui/core/colors';
+import {amber} from '@material-ui/core/colors';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -28,7 +28,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Menu from "@material-ui/core/Menu";
 import Tooltip from '@material-ui/core/Tooltip';
-import { Notification, NotificationTypeInfo, NotificationTypeWarn, NotificationTypeAlert } from '../types/types'
+import {Notification, NotificationTypeInfo, NotificationTypeWarn, NotificationTypeAlert} from '../types/types'
 
 const drawerWidth = 240;
 
@@ -43,7 +43,7 @@ const notificationLevels = {
     [NotificationTypeInfo]: 1,
     [NotificationTypeWarn]: 2,
     [NotificationTypeAlert]: 3,
-}
+};
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -171,13 +171,13 @@ export default function Layout({children}: { children: React.ReactNode }) {
     const isNotificationOpen = Boolean(notificationEl);
     const profileMenuId = 'primary-search-account-menu';
     const notificationMenuId = 'primary-search-notification-menu';
-    const handleProfileOpen = (event: React.MouseEvent<HTMLElement>) => setProfileEl(event.currentTarget)
+    const handleProfileOpen = (event: React.MouseEvent<HTMLElement>) => setProfileEl(event.currentTarget);
     const handleProfileClose = () => setProfileEl(null)
-    const handleNotificationOpen = (event: React.MouseEvent<HTMLElement>) => setNotificationEl(event.currentTarget)
-    const handleNotificationClose = () => setNotificationEl(null)
-    const handleDrawerOpen = () => setOpen(true)
-    const handleDrawerClose = () => setOpen(false)
-    const highestNotificationLevel = notifications.reduce((acc, not) => Math.max(acc, notificationLevels[not.type || NotificationTypeInfo]), notificationLevels[NotificationTypeInfo]);
+    const handleNotificationOpen = (event: React.MouseEvent<HTMLElement>) => setNotificationEl(event.currentTarget);
+    const handleNotificationClose = () => setNotificationEl(null);
+    const handleDrawerOpen = () => setOpen(true);
+    const handleDrawerClose = () => setOpen(false);
+    const highestNotificationLevel = notifications.reduce((acc, not) => Math.max(acc, notificationLevels[not.type]), notificationLevels[NotificationTypeInfo]);
     return (
         <div className={classes.root}>
             <CssBaseline/>
