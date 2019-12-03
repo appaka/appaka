@@ -8,6 +8,7 @@ import Tasks from "./components/tasks";
 import Stories from "./components/stories";
 import StoryForm from "./components/stories/StoryForm";
 import Login from "./components/Login";
+import BordPage from "./components/board";
 
 const App: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route exact path="/stories" component={Stories} />
           <Route exact path="/story/:id" component={StoryForm} />
           <Route exact path="/story" component={StoryForm} />
+          <Route exact path="/board" component={BordPage} />
         </Layout>
       </Router>
     </>

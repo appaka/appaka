@@ -5,6 +5,8 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import HTML5Backend from "react-dnd-html5-backend";
+import { DndProvider } from "react-dnd";
 
 const client = new ApolloClient({
   uri: "https://48p1r2roz4.sse.codesandbox.io"
@@ -12,7 +14,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <DndProvider backend={HTML5Backend}>
+      <App />
+    </DndProvider>
   </ApolloProvider>,
   document.getElementById("root")
 );
