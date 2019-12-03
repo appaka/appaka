@@ -32,6 +32,7 @@ CREATE TABLE public.tickets (
     updated_at TIMESTAMP,
     inserted_at TIMESTAMP
 );
+insert into public.tickets (type, title, description, story_points, status) values ('story', 'title story', 'description story', 10, 'new');
 
 
 DROP TABLE IF EXISTS public.ticket_comments;

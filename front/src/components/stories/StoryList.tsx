@@ -6,8 +6,30 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import stories from "../../mocks/stories.mock";
 import { Link } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+import { Story } from "../../types/types";
+import { LinearProgress } from "@material-ui/core";
+
+const GET_STORIES = gql`
+  query {
+    stories {
+      id
+      title
+      description
+    }
+  }
+`;
 
 const StoryList: React.FC = () => {
+  const { loading, error, data } = useQuery(GET_STORIES);
+
+  if (loading) return <LinearProgress />;
+  if (error) {
+    console.log(error);
+    return <p>Error</p>;
+  }
+
   return (
     <div>
       <Table aria-label="simple table">
@@ -21,7 +43,7 @@ const StoryList: React.FC = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {stories.map(story => (
+          {data.stories.map((story: Story) => (
             <TableRow key={story.id}>
               <TableCell>{story.title}</TableCell>
               <TableCell>{story.description}</TableCell>

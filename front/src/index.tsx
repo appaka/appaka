@@ -9,7 +9,7 @@ import HTML5Backend from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
 
 const client = new ApolloClient({
-  uri: "https://48p1r2roz4.sse.codesandbox.io"
+  uri: "http://localhost:4000/api"
 });
 
 ReactDOM.render(
