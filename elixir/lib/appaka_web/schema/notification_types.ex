@@ -7,6 +7,7 @@ defmodule AppakaWeb.Schema.NotificationTypes do
     field :source, :string
     field :message, :string
     field :acknowledged, :boolean
+    field :level, :string
     field :priority, :string
     field :createdAt, :string
     field :updatedAt, :string

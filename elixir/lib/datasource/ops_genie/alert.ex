@@ -4,13 +4,33 @@ defmodule DataSource.OpsGenie.Alert do
 
   alias DataSource.OpsGenie.Client
 
-  def map_keys_to_atoms(map) do
-    for {key, val} <- map, into: %{}, do: {String.to_atom(key), val}
+  def format_level(raw_alert) do
+    if raw_alert["acknowledged"] do
+      if raw_alert["priority"] == "P1" do
+        "alert"
+      else
+        "warn"
+      end
+    else
+      "info"
+    end
+  end
+
+  def format_alert(raw_alert) do
+    %{
+      id: raw_alert["id"],
+      source: raw_alert["source"],
+      message: raw_alert["message"],
+      acknowledged: raw_alert["acknowledged"],
+      priority: raw_alert["priority"],
+      level: format_level(raw_alert),
+      createdAt: raw_alert["createdAt"],
+      updatedAt: raw_alert["updatedAt"],
+    }
   end
 
   def list(options \\ []) do
     params = %{
-      # "limit" => Keyword.get(options, :limit, 20),
       "limit" => 20,
       # "searchIdentifier" => "openAlerts",
       "searchIdentifierType" => "name",
@@ -24,7 +44,7 @@ defmodule DataSource.OpsGenie.Alert do
       {:ok, %{"data" => data} = body}
       ->
         data
-        |> Enum.map(&map_keys_to_atoms(&1))
+        |> Enum.map(&format_alert(&1))
       error ->
         error
     end

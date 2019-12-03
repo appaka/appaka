@@ -1,6 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import {Link} from "react-router-dom";
+import {gql} from "apollo-boost";
+import {useQuery} from "@apollo/react-hooks";
+import {LinearProgress} from "@material-ui/core";
 import {createStyles, makeStyles, Theme, fade} from '@material-ui/core/styles';
 import {amber} from '@material-ui/core/colors';
 import Drawer from '@material-ui/core/Drawer';
@@ -28,21 +31,28 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Menu from "@material-ui/core/Menu";
 import Tooltip from '@material-ui/core/Tooltip';
-import {Notification, NotificationTypeInfo, NotificationTypeWarn, NotificationTypeAlert} from '../types/types'
+import {Notification, NotificationLevelInfo, NotificationLevelWarn, NotificationLevelAlert} from '../types/types'
 
 const drawerWidth = 240;
 
-const notifications: Array<Notification> = [
-    {label: 'This is a notification that sends you Home.', to: '/tasks', type: 'info'},
-    {label: 'This is a notification that sends you to Tasks.', to: '/tasks', type: 'info'},
-    {label: 'This is a notification that sends you to Stories.', to: '/stories', type: 'warn'},
-    {label: 'This is a notification that sends you to Board.', to: '/board', type: 'alert'},
-];
+const GET_NOTIFICATIONS = gql`
+  query {
+    notifications {
+        id,
+        acknowledged,
+        message,
+        source,
+        priority,
+        level,
+    }
+  }
+`;
+
 
 const notificationLevels = {
-    [NotificationTypeInfo]: 1,
-    [NotificationTypeWarn]: 2,
-    [NotificationTypeAlert]: 3,
+    [NotificationLevelInfo]: 1,
+    [NotificationLevelWarn]: 2,
+    [NotificationLevelAlert]: 3,
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -177,7 +187,9 @@ export default function Layout({children}: { children: React.ReactNode }) {
     const handleNotificationClose = () => setNotificationEl(null);
     const handleDrawerOpen = () => setOpen(true);
     const handleDrawerClose = () => setOpen(false);
-    const highestNotificationLevel = notifications.reduce((acc, not) => Math.max(acc, notificationLevels[not.type]), notificationLevels[NotificationTypeInfo]);
+    const {data = {}} = useQuery(GET_NOTIFICATIONS);
+    const {notifications = []}: { notifications?: Array<Notification> } = data;
+    const highestNotificationLevel = notifications.reduce((acc: number, not: Notification) => Math.max(acc, notificationLevels[not.level]), notificationLevels[NotificationLevelInfo]);
     return (
         <div className={classes.root}>
             <CssBaseline/>
@@ -193,7 +205,7 @@ export default function Layout({children}: { children: React.ReactNode }) {
                 <Toolbar>
                     <IconButton
                         color="inherit"
-                        aria-label="open drawer"
+                        aria-message="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
                         className={clsx(classes.menuButton, {
@@ -276,10 +288,10 @@ export default function Layout({children}: { children: React.ReactNode }) {
                     onClose={handleNotificationClose}
                 >
                     <Divider/>
-                    {notifications.map(({label, to}) => [
-                            <Link to={to} key={label} className={classes.menuItem} onClick={handleNotificationClose}>
+                    {notifications.map(({message, to}) => [
+                            <Link to={to} key={message} className={classes.menuItem} onClick={handleNotificationClose}>
                                 <ListItem button>
-                                    <ListItemText primary={label}/>
+                                    <ListItemText primary={message}/>
                                 </ListItem>
                             </Link>,
                             <Divider/>

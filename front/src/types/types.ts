@@ -27,15 +27,15 @@ export type Task = {
 };
 
 export type Notification = {
-  label: string;
+  message: string;
   to: string;
-  type: NotificationType
+  level: NotificationLevel
 }
 
 export type Status = "new" | "wip" | "done" | "rejected" | "closed";
 
-export const NotificationTypeInfo = 'info';
-export const NotificationTypeWarn = 'warn';
-export const NotificationTypeAlert = 'alert';
+export const NotificationLevelInfo = 'info';
+export const NotificationLevelWarn = 'warn';
+export const NotificationLevelAlert = 'alert';
 
-export type NotificationType = 'info' | 'warn' | 'alert';
+export type NotificationLevel = 'info' | 'warn' | 'alert';
