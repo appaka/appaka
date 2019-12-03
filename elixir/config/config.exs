@@ -22,7 +22,7 @@ config :logger, :console,
   metadata: [:request_id]
 
 config :cors_plug,
-  origin: ["*"],
+  origin: "*",
   max_age: 86400,
   method: ["GET","POST"]
 
