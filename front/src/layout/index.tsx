@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
-import {createStyles, makeStyles, useTheme, Theme} from '@material-ui/core/styles';
+import {Link} from "react-router-dom";
+import {createStyles, makeStyles, Theme, fade} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,14 +11,22 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import {Link} from "react-router-dom";
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
+import SearchIcon from '@material-ui/icons/Search';
+import InputBase from "@material-ui/core/InputBase";
+import Badge from "@material-ui/core/Badge/Badge";
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import SettingsIcon from '@material-ui/icons/Settings';
+import Menu from "@material-ui/core/Menu";
+import Tooltip from '@material-ui/core/Tooltip';
 
 const drawerWidth = 240;
 
@@ -43,6 +52,47 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         menuButton: {
             marginRight: 36,
+        },
+        grow: {
+            flexGrow: 1,
+        },
+        search: {
+            position: 'relative',
+            borderRadius: theme.shape.borderRadius,
+            backgroundColor: fade(theme.palette.common.white, 0.15),
+            '&:hover': {
+                backgroundColor: fade(theme.palette.common.white, 0.25),
+            },
+            marginRight: theme.spacing(2),
+            marginLeft: 0,
+            width: '100%',
+            [theme.breakpoints.up('sm')]: {
+                marginLeft: theme.spacing(3),
+                width: 'auto',
+            },
+        },
+        searchIcon: {
+            width: theme.spacing(7),
+            height: '100%',
+            position: 'absolute',
+            pointerEvents: 'none',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        inputRoot: {
+            color: 'inherit',
+        },
+        inputInput: {
+            padding: theme.spacing(1, 1, 1, 7),
+            transition: theme.transitions.create('width'),
+            width: '100%',
+            [theme.breakpoints.up('md')]: {
+                width: 200,
+            },
+        },
+        sectionDesktop: {
+            display: 'flex',
         },
         hide: {
             display: 'none',
@@ -90,16 +140,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Layout({children}: { children: React.ReactNode }) {
     const classes = useStyles();
-    const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
+    const [profileEl, setProfileEl] = React.useState<null | HTMLElement>(null);
+    const [notificationEl, setNotificationEl] = React.useState<null | HTMLElement>(null);
+    const isMenuOpen = Boolean(profileEl);
+    const isNotificationOpen = Boolean(notificationEl);
+    const profileMenuId = 'primary-search-account-menu';
+    const notificationMenuId = 'primary-search-notification-menu';
+    const handleProfileOpen = (event: React.MouseEvent<HTMLElement>) => setProfileEl(event.currentTarget)
+    const handleProfileClose = () => setProfileEl(null)
+    const handleNotificationOpen = (event: React.MouseEvent<HTMLElement>) => setNotificationEl(event.currentTarget)
+    const handleNotificationClose = () => setNotificationEl(null)
+    const handleDrawerOpen = () => setOpen(true)
+    const handleDrawerClose = () => setOpen(false)
 
     return (
         <div className={classes.root}>
@@ -125,7 +178,92 @@ export default function Layout({children}: { children: React.ReactNode }) {
                     <Typography variant="h6" noWrap>
                         AppAka
                     </Typography>
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <SearchIcon/>
+                        </div>
+                        <InputBase
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{'aria-label': 'search'}}
+                        />
+                    </div>
+                    <div className={classes.grow}/>
+                    <div className={classes.sectionDesktop}>
+                        <Tooltip title="Notification">
+                            <IconButton
+                                aria-label="show 17 new notifications"
+                                color="inherit"
+                                onClick={handleNotificationOpen}
+                            >
+                                <Badge badgeContent={17} color="secondary">
+                                    <NotificationsIcon/>
+                                </Badge>
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="My Account">
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={profileMenuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle/>
+                            </IconButton>
+                        </Tooltip>
+                    </div>
                 </Toolbar>
+                <Menu
+                    anchorEl={profileEl}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                    id={profileMenuId}
+                    keepMounted
+                    getContentAnchorEl={null}
+                    transformOrigin={{vertical: 'top', horizontal: 'right'}}
+                    open={isMenuOpen}
+                    onClose={handleProfileClose}
+                >
+                    <ListItem button onClick={handleProfileClose}>
+                        <ListItemIcon><SettingsIcon/></ListItemIcon>
+                        <ListItemText primary="Settings"/>
+                    </ListItem>
+                    <Divider/>
+                    <ListItem button onClick={handleProfileClose}>
+                        <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+                        <ListItemText primary="Logout"/>
+                    </ListItem>
+                </Menu>
+                <Menu
+                    anchorEl={notificationEl}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+                    id={notificationMenuId}
+                    keepMounted
+                    getContentAnchorEl={null}
+                    transformOrigin={{vertical: 'top', horizontal: 'center'}}
+                    open={isNotificationOpen}
+                    onClose={handleNotificationClose}
+                >
+                    <Divider/>
+                    {[
+                        {label: 'This is a notification that sends you Home.', to: '/'},
+                        {label: 'This is a notification that sends you to Tasks.', to: '/tasks'},
+                        {label: 'This is a notification that sends you to Stories.', to: '/stories'},
+                        {label: 'This is a notification that sends you to Board.', to: '/board'},
+                    ].map(({label, to}) => [
+                            <Link to={to} key={label} className={classes.menuItem} onClick={handleNotificationClose}>
+                                <ListItem button>
+                                    <ListItemText primary={label}/>
+                                </ListItem>
+                            </Link>,
+                            <Divider/>
+                        ]
+                    )}
+                </Menu>
             </AppBar>
             <Drawer
                 variant="permanent"
@@ -143,14 +281,15 @@ export default function Layout({children}: { children: React.ReactNode }) {
             >
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'rtl' ? <ChevronRightIcon/> : <ChevronLeftIcon/>}
+                        <ChevronLeftIcon/>
                     </IconButton>
                 </div>
                 <Divider/>
                 {[
                     {label: 'Home', to: '/', icon: <HomeIcon/>},
-                    {label: 'Tasks', to: '/tasks', icon: <AssignmentIndIcon/>},
+                    {label: 'Tasks', to: '/tasks', icon: <AssignmentIcon/>},
                     {label: 'Stories', to: '/stories', icon: <InboxIcon/>},
+                    {label: 'Board', to: '/board', icon: <DeveloperBoardIcon/>},
                 ].map(({label, to, icon}) => (
                     <Link to={to} key={label} className={classes.menuItem}>
                         <ListItem button>

@@ -16,12 +16,14 @@ export type Story = {
   author?: User;
   dateCreated: string;
   status: Status;
+  tasks?: Task[];
 };
 
 export type Task = {
   id?: number;
   title: string;
   description: string;
+  status: Status;
 };
 
 export type Status = "new" | "wip" | "done" | "rejected" | "closed";
