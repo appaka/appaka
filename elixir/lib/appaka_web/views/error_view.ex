@@ -1,5 +1,5 @@
-defmodule BlogWeb.ErrorView do
-  use BlogWeb, :view
+defmodule AppakaWeb.ErrorView do
+  use AppakaWeb, :view
 
   def render("404.json", _assigns) do
     %{errors: %{detail: "Page not found"}}

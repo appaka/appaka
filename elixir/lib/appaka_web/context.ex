@@ -1,10 +1,10 @@
-defmodule BlogWeb.Context do
+defmodule AppakaWeb.Context do
   @behaviour Plug
 
   import Plug.Conn
   import Ecto.Query, only: [first: 1]
 
-  alias Blog.{Repo, Accounts}
+  alias Appaka.{Repo, Models}
 
   def init(opts), do: opts
 
@@ -32,7 +32,7 @@ defmodule BlogWeb.Context do
   # NOTE: This is a stub, just returning the first user and stubbing in the user
   # as an administrator.
   defp authorize(_token) do
-    Accounts.User
+    Models.Users
     |> first
     |> Repo.one
     |> case do

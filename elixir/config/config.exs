@@ -6,16 +6,15 @@
 use Mix.Config
 
 # General application configuration
-config :blog,
-  ecto_repos: [Blog.Repo]
+config :appaka,
+  ecto_repos: [Appaka.Repo]
 
 # Configures the endpoint
-config :blog, BlogWeb.Endpoint,
+config :appaka, AppakaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "oxuac8/0WnOgbiE17w/l47ZNzrpOKULZk3aiq+d6j3jvhgjeGizt7f9jcie37oJq",
-  render_errors: [view: BlogWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Blog.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  render_errors: [view: AppakaWeb.ErrorView, accepts: ~w(json)],
+  pubsub: [name: Appaka.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,

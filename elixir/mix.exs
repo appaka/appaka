@@ -1,9 +1,9 @@
-defmodule Blog.Mixfile do
+defmodule Appaka.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :blog,
+      app: :appaka,
       version: "0.0.1",
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env),
@@ -19,7 +19,8 @@ defmodule Blog.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Blog.Application, []},
+      #mod: {Blog.Application, []},
+      mod: {Appaka.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

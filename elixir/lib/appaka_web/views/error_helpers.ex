@@ -1,4 +1,4 @@
-defmodule BlogWeb.ErrorHelpers do
+defmodule AppakaWeb.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -21,9 +21,9 @@ defmodule BlogWeb.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(BlogWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(AppakaWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(BlogWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(AppakaWeb.Gettext, "errors", msg, opts)
     end
   end
 end

@@ -1,4 +1,4 @@
-defmodule Blog.Application do
+defmodule Appaka.Application do
   use Application
 
   # See https://hexdocs.pm/elixir/Application.html
@@ -9,23 +9,23 @@ defmodule Blog.Application do
     # Define workers and child supervisors to be supervised
     children = [
       # Start the Ecto repository
-      supervisor(Blog.Repo, []),
+      supervisor(Appaka.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(BlogWeb.Endpoint, []),
-      # Start your own worker by calling: Blog.Worker.start_link(arg1, arg2, arg3)
-      # worker(Blog.Worker, [arg1, arg2, arg3]),
+      supervisor(AppakaWeb.Endpoint, []),
+      # Start your own worker by calling: Appaka.Worker.start_link(arg1, arg2, arg3)
+      # worker(Appaka.Worker, [arg1, arg2, arg3]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: Blog.Supervisor]
+    opts = [strategy: :one_for_one, name: Appaka.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    BlogWeb.Endpoint.config_change(changed, removed)
+    AppakaWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

@@ -1,12 +1,11 @@
-defmodule BlogWeb do
+defmodule AppakaWeb do
   @moduledoc """
-  The entrypoint for defining your web interface, such
-  as controllers, views, channels and so on.
+  The entrypoint for defining your web interface, such as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use BlogWeb, :controller
-      use BlogWeb, :view
+      use AppakaWeb, :controller
+      use AppakaWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,24 +18,23 @@ defmodule BlogWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: BlogWeb
+      use Phoenix.Controller, namespace: AppakaWeb
       import Plug.Conn
-      import BlogWeb.Router.Helpers
-      import BlogWeb.Gettext
+      import AppakaWeb.Router.Helpers
+      import AppakaWeb.Gettext
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/blog_web/templates",
-                        namespace: BlogWeb
+      use Phoenix.View, root: "lib/appaka_web/templates", namespace: AppakaWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
 
-      import BlogWeb.Router.Helpers
-      import BlogWeb.ErrorHelpers
-      import BlogWeb.Gettext
+      import AppakaWeb.Router.Helpers
+      import AppakaWeb.ErrorHelpers
+      import AppakaWeb.Gettext
     end
   end
 
@@ -51,7 +49,7 @@ defmodule BlogWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import BlogWeb.Gettext
+      import AppakaWeb.Gettext
     end
   end
 

@@ -1,15 +1,15 @@
-defmodule Blog.Accounts.User do
+defmodule Appaka.Models.Users do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Blog.{Accounts, Content}
-
   schema "users" do
     field :name, :string
+    field :email, :string
     field :password_hash, :string
 
-    has_many :posts, Content.Post, foreign_key: :author_id
-    has_many :contacts, Accounts.Contact
+    has_many :tickets, Tickets, foreign_key: :author_id
+    has_many :asigned, Tickets, foreign_key: :asignee_id
+    has_many :ticket_comments, TicketComments, foreign_key: :author_id
 
     timestamps()
   end
@@ -26,7 +26,7 @@ defmodule Blog.Accounts.User do
       attrs
       |> Map.put(:password_hash, Comeonin.Argon2.hashpwsalt(attrs.password))
     user
-    |> cast(attrs, [:name, :password_hash])
-    |> validate_required([:name, :password_hash])
+    |> cast(attrs, [:name, :email, :password_hash])
+    |> validate_required([:email])
   end
 end

@@ -1,19 +1,19 @@
-defmodule BlogWeb.Router do
-  use BlogWeb, :router
+defmodule AppakaWeb.Router do
+  use AppakaWeb, :router
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug BlogWeb.Context
+    plug AppakaWeb.Context
   end
 
   scope "/api" do
     pipe_through :api
 
     forward "/graphiql", Absinthe.Plug.GraphiQL,
-      schema: BlogWeb.Schema
+      schema: AppakaWeb.Schema
 
     forward "/", Absinthe.Plug,
-      schema: BlogWeb.Schema
+      schema: AppakaWeb.Schema
   end
 
 end

@@ -1,8 +1,8 @@
-defmodule BlogWeb.UserSocket do
+defmodule AppakaWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", BlogWeb.RoomChannel
+  # channel "room:*", AppakaWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -30,7 +30,7 @@ defmodule BlogWeb.UserSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     BlogWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
+  #     AppakaWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil
