@@ -18,8 +18,6 @@ services:
     volumes:
       - ./elixir:/usr/src/myapp
       - ./elixir/.mix:/root/.mix
-    networks:
-      - appaka
     depends_on:
       - postgres
     command: phx.server
@@ -38,8 +36,6 @@ services:
     volumes:
       - ./docker/db-fixtures/:/docker-entrypoint-initdb.d/:delegated
       - postgres:/var/lib/postgresql/data
-    networks:
-      - appaka
     ports:
       - 5432:5432
 
