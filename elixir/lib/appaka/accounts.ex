@@ -19,7 +19,7 @@ defmodule Appaka.Accounts do
   def create_user(attrs) do
     Repo.transaction fn ->
       attrs
-      |> Models.Users.changeset
+      #|> Models.Users.changeset
       |> Appaka.Repo.insert
     end
   end

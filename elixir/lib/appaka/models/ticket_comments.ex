@@ -5,8 +5,8 @@ defmodule Appaka.Models.TicketComments do
   schema "ticket_comments" do
     field :body, :string
 
-    belongs_to :users, Users, foreign_key: :author_id
-    belongs_to :tickets, Tickets, foreign_key: :ticket_id
+    #belongs_to :users, Users, foreign_key: :author_id
+    #belongs_to :tickets, Tickets, foreign_key: :ticket_id
 
     timestamps()
   end

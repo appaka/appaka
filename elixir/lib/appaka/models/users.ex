@@ -9,9 +9,9 @@ defmodule Appaka.Models.Users do
     field :password_hash, :string
     field :token, :string
 
-    has_many :ticket, Tickets, foreign_key: :author_id
-    has_many :asigned, Tickets, foreign_key: :asignee_id
-    has_many :ticket_comments, TicketComments, foreign_key: :author_id
+    #has_many :ticket, Tickets, foreign_key: :author_id
+    #has_many :asigned, Tickets, foreign_key: :asignee_id
+    #has_many :ticket_comments, TicketComments, foreign_key: :author_id
 
     timestamps()
   end
@@ -20,6 +20,7 @@ defmodule Appaka.Models.Users do
   def changeset(attrs) do
     %__MODULE__{}
     |> changeset(attrs)
+    |> unique_constraint(:id, message: "Account number must be unique or some message like that")
   end
 
   @doc false
@@ -28,6 +29,7 @@ defmodule Appaka.Models.Users do
       attrs
       |> Map.put(:password_hash, Comeonin.Argon2.hashpwsalt(attrs.password))
     user
+    |> unique_constraint(:id, message: "Account number must be unique or some message like that")
     |> cast(attrs, [:name, :email, :password_hash])
     |> validate_required([:email])
   end

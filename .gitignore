@@ -21,3 +21,4 @@
 /elixir/*.tar
 # Ignore Elixir packages cache
 /elixir/.mix
+/elixir/.idea

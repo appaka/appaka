@@ -19,7 +19,6 @@ defmodule Appaka.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      #mod: {Blog.Application, []},
       mod: {Appaka.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]

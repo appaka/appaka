@@ -1,4 +1,4 @@
-defmodule BlogWeb.ChannelCase do
+defmodule AppakaWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule BlogWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint BlogWeb.Endpoint
+      @endpoint AppakaWeb.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blog.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Appaka.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Blog.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Appaka.Repo, {:shared, self()})
     end
     :ok
   end

@@ -3,4 +3,4 @@
 mix local.rebar --force
 mix deps.get
 
-exec mix "$@"
+exec "$@"

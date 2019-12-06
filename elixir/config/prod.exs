@@ -3,7 +3,7 @@ use Mix.Config
 # For production, we often load configuration from external
 # sources, such as your system environment. For this reason,
 # you won't find the :http configuration below, but set inside
-# BlogWeb.Endpoint.init/2 when load_from_system_env is
+# AppakaWeb.Endpoint.init/2 when load_from_system_env is
 # true. Any dynamic configuration should be done there.
 #
 # Don't forget to configure the url host to something meaningful,
@@ -26,7 +26,7 @@ config :logger, level: :info
 # To get SSL working, you will need to add the `https` key
 # to the previous section and set your `:url` port to 443:
 #
-#     config :blog, BlogWeb.Endpoint,
+#     config :appaka, AppakaWeb.Endpoint,
 #       ...
 #       url: [host: "example.com", port: 443],
 #       https: [:inet6,
@@ -41,7 +41,7 @@ config :logger, level: :info
 # We also recommend setting `force_ssl`, ensuring no data is
 # ever sent via http, always redirecting to https:
 #
-#     config :blog, BlogWeb.Endpoint,
+#     config :appaka, AppakaWeb.Endpoint,
 #       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
@@ -56,7 +56,7 @@ config :logger, level: :info
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
-#     config :blog, BlogWeb.Endpoint, server: true
+#     config :appaka, AppakaWeb.Endpoint, server: true
 #
 
 # Finally import the config/prod.secret.exs

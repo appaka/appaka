@@ -1,4 +1,4 @@
-defmodule Blog.DataCase do
+defmodule Appaka.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule Blog.DataCase do
 
   using do
     quote do
-      alias Blog.Repo
+      alias Appaka.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Blog.DataCase
+      import Appaka.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Blog.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Appaka.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Blog.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Appaka.Repo, {:shared, self()})
     end
 
     :ok

@@ -1,4 +1,4 @@
-defmodule Blog.Repo.Migrations.CreatePosts do
+defmodule Appaka.Repo.Migrations.CreatePosts do
   use Ecto.Migration
 
   def change do

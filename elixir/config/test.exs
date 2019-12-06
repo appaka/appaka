@@ -14,6 +14,6 @@ config :apaka, Appaka.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "blog_test",
+  database: "test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

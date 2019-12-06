@@ -20,7 +20,7 @@ services:
       - ./elixir/.mix:/root/.mix
     depends_on:
       - postgres
-    command: phx.server
+    command: mix phx.server
     entrypoint: /usr/src/myapp/entrypoint.sh
     environment:
       DATABASE_URL: ecto://username:password@postgres/appaka
@@ -37,7 +37,7 @@ services:
       - ./docker/db-fixtures/:/docker-entrypoint-initdb.d/:delegated
       - postgres:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - 54320:5432
 
 volumes:
   postgres:

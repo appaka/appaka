@@ -1,4 +1,4 @@
-defmodule Blog.Repo.Migrations.CreateContacts do
+defmodule Appaka.Repo.Migrations.CreateContacts do
   use Ecto.Migration
 
   def up do
