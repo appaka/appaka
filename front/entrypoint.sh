@@ -2,4 +2,4 @@
 
 yarn install
 
-exec yarn "$@"
+exec "$@"
